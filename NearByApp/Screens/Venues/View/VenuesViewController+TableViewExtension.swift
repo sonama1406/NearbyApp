@@ -17,7 +17,7 @@ extension VenuesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let venues = venuesViewModel.venuesModel?.venues?[indexPath.row]
         let cell: VenuesTableViewCell = tableView.dequeueReusableCellForIndex(indexPath: indexPath)
-        cell.setDataOnCell(venues?.name ?? String(), venuesViewModel.venuesModel?.meta?.geolocation?.state ?? String(), venues?.address ?? String() )
+        cell.setDataOnCell(venues?.name ?? String(), venues?.city ?? String(), venues?.address ?? String() )
         return cell 
     }
     

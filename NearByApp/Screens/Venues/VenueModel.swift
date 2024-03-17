@@ -27,7 +27,7 @@ struct Geolocation: Decodable {
 
 // MARK: - Venue
 struct Venue: Decodable {
-    let nameV2, postalCode, name: String?
+    let nameV2, postalCode,city, name: String?
     let timezone: String?
     let url: String?
     let score: Int?
