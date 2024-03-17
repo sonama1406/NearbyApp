@@ -33,15 +33,12 @@ struct Venue: Decodable {
     let score: Int?
     let location: Location?
     let address: String?
-    //let country: Country?
     let hasUpcomingEvents: Bool?
     let numUpcomingEvents: Int?
     let slug: String?
-   // let extendedAddress: DisplayLocation?
     let stats: Stats?
     let id, popularity: Int?
     let metroCode, capacity: Int?
-   // let displayLocation: DisplayLocation?
 }
 
 // MARK: - Location

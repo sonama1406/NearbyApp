@@ -24,28 +24,30 @@ protocol ServiceLayer {
 struct ServiceLayerImpl:ServiceLayer {
     
     func fetch(path: String, completionHandler: @escaping (Result<Data, APIError>) -> Void) {
-        let url = URL(string: path)!
-
-            let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-              if let error = error {
-                  completionHandler(.failure(.invalidResponse))
+        guard let url = URL(string: path) else {
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            if let error = error {
+                completionHandler(.failure(.invalidResponse))
                 return
-              }
-              
-              guard let httpResponse = response as? HTTPURLResponse,
-                    (200...299).contains(httpResponse.statusCode) else {
-                        let errorTemp = NSError(domain:"", code:(response as? HTTPURLResponse)?.statusCode ?? 200, userInfo:nil)
-                  completionHandler(.failure(.invalidStatusCode))
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                let errorTemp = NSError(domain:"", code:(response as? HTTPURLResponse)?.statusCode ?? 200, userInfo:nil)
+                completionHandler(.failure(.invalidStatusCode))
                 return
-              }
-                if let data = data {
-                    completionHandler(.success(data))
-                } else {
-                    completionHandler(.failure(.invalidData))
-                }
-                
-            })
-            task.resume()
+            }
+            if let data = data {
+                completionHandler(.success(data))
+            } else {
+                completionHandler(.failure(.invalidData))
+            }
+            
+        })
+        task.resume()
     }
     
     

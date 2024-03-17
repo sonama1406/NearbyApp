@@ -22,7 +22,7 @@ final class VenuesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     func setDataOnCell(_ name: String, _ city: String, _ address: String) {
         lblName.text = name
         lblCity.text = city

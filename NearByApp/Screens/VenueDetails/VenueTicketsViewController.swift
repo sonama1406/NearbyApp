@@ -6,24 +6,31 @@
 //
 
 import UIKit
+import WebKit
 
-class VenueTicketsViewController: UIViewController {
-
+// MARK: VenueTicketsViewController
+final class VenueTicketsViewController: UIViewController, WKUIDelegate {
+    private var webView: WKWebView!
+    var url: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        guard let url = url else {
+            return
+        }
+        guard let webURL = URL(string:url) else {
+            return
+        }
+        
+        let webRequest = URLRequest(url: webURL)
+        webView.load(webRequest)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
     }
-    */
-
 }

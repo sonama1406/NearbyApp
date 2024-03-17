@@ -9,8 +9,9 @@ import Foundation
 struct APIHelper {
     var serviceLayer:ServiceLayer?
     
-    func fetchVenues(completionHandler: @escaping (Result<VenuesModel,APIError>) -> Void) {
-        let urlString  = Constants.API.basePath
+    func fetchVenues(_ latitude: String, _ longitude: String,_ miles: String, _ count: Int, completionHandler: @escaping (Result<VenuesModel,APIError>) -> Void) {
+        
+        let urlString  = Constants.API.basePath + "?per_page=\(count)&page=1&client_id=Mzg0OTc0Njl8MTcwMDgxMTg5NC44MDk2NjY5&lat=\(latitude)&lon=\(longitude)&range=\(miles)"
         serviceLayer?.fetch(path: urlString, completionHandler: { result in
             switch result {
             case .success(let data):

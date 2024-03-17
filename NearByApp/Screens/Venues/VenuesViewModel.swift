@@ -7,16 +7,16 @@
 
 import Foundation
 
-
+// MARK: VenuesViewModel
 final class VenuesViewModel {
     
     var eventData: ((EventData) -> Void)?
     let apiHelper = APIHelper(serviceLayer: ServiceLayerImpl())
     var venuesModel: VenuesModel?
     
-    func fetchData()  {
+    func fetchData(_ latitude: String, _ longitude: String, _ miles: String, _ count: Int)  {
         eventData?(.loading)
-        apiHelper.fetchVenues(completionHandler:  { [weak self] result in
+        apiHelper.fetchVenues(latitude, longitude,miles,count, completionHandler:  { [weak self] result in
             guard let self else {
                 return
             }
@@ -36,9 +36,10 @@ final class VenuesViewModel {
     
 }
 
-    enum EventData {
-        case loading
-        case endLoading
-        case dataLoaded
-        case error(APIError?)
-    }
+// MARK: EventData
+enum EventData {
+    case loading
+    case endLoading
+    case dataLoaded
+    case error(APIError?)
+}

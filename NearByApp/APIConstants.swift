@@ -6,3 +6,10 @@
 //
 
 import Foundation
+// MARK: Constants
+enum Constants {
+    enum API {
+        static let basePath = "https://api.seatgeek.com/2/venues"
+    }
+    
+}
